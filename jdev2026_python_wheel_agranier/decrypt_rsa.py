@@ -9,7 +9,7 @@ from .helpers import (
     rsa_encrypt_text,
     show_text_gui,
 )
-
+from importlib.resources import files
 
 def run_decrypt_rsa():
     # public key (n, e)
@@ -31,7 +31,8 @@ def run_decrypt_rsa():
     show_text_gui(str(c), title="Encrypted message", label="Encrypted message:")
 
     # Load the list of primes and break RSA to find d
-    primes = np.load("primes.npz").tolist()
+    data_path = files("jdev2026_python_wheel_agranier.data") / "primes.npz"
+    primes = np.load(data_path).tolist()
     d = break_rsa_with_primes(n, e, primes)
 
     # Decrypting the message
